@@ -31,10 +31,8 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
-# GitHub Actions
 .github/workflows/*.secret.yml
 
-# Terraform (if applicable)
 .terraform/
 *.tfstate
 *.tfstate.backup
