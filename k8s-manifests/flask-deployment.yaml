@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flask-app
-  namespace: final
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -35,7 +35,7 @@ spec:
                   name: aws-credentials
                   key: AWS_SESSION_TOKEN
             - name: DBHOST
-              value: mysql.final.svc.cluster.local
+              value: mysql.default.svc.cluster.local
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:

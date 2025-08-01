@@ -1,0 +1,19 @@
+# cleanup-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-cleaner
+  namespace: default
+spec:
+  containers:
+  - name: cleaner
+    image: busybox
+    command: ["sh", "-c", "rm -rf /var/lib/mysql/* && sleep 3600"]
+    volumeMounts:
+    - name: mysql-data
+      mountPath: /var/lib/mysql
+  volumes:
+  - name: mysql-data
+    persistentVolumeClaim:
+      claimName: mysql-ebs-pvc
+  restartPolicy: Never
