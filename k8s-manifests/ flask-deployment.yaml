@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+  namespace: final
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-app
+        image: your-registry/flask-app:latest
+        ports:
+        - containerPort: 81
+        env:
+        - name: DBHOST
+          value: mysql
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_PASSWORD
+        - name: DATABASE
+          value: employees
+        - name: DBPORT
+          value: "3306"
+        - name: BG_IMAGE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: flask-config
+              key: BG_IMAGE_URL
+        - name: MY_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: flask-config
+              key: MY_NAME
+        - name: APP_COLOR
+          valueFrom:
+            configMapKeyRef:
+              name: flask-config
+              key: APP_COLOR
