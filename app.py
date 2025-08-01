@@ -94,7 +94,9 @@ def home():
 
 @app.route("/about", methods=['GET','POST'])
 def about():
-    return render_template('about.html', color=color_codes[COLOR])
+    background_image = get_s3_image_url()
+    return render_template('about.html', color=color_codes[COLOR], 
+                         background_image=background_image, my_name=MY_NAME)
     
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
