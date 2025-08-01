@@ -46,7 +46,34 @@ color_codes = {
     "lime": "#C1FF9C",
 }
 
-
+def get_s3_image_url():
+    """Get image URL from S3 bucket"""
+    try:
+        # Parse the S3 URL from ConfigMap
+        if BG_IMAGE_URL.startswith("https://"):
+            # Extract bucket and key from URL
+            url_parts = BG_IMAGE_URL.replace("https://", "").split("/")
+            bucket_name = url_parts[0].split(".")[0]  # Remove .s3.amazonaws.com
+            key = "/".join(url_parts[1:])
+            
+            # Create S3 client
+            s3_client = boto3.client('s3')
+            
+            # Generate presigned URL for private bucket access
+            presigned_url = s3_client.generate_presigned_url(
+                'get_object',
+                Params={'Bucket': bucket_name, 'Key': key},
+                ExpiresIn=3600  # URL expires in 1 hour
+            )
+            
+            logger.info(f"Generated presigned URL for S3 image: {presigned_url}")
+            return presigned_url
+        else:
+            logger.warning(f"Invalid S3 URL format: {BG_IMAGE_URL}")
+            return BG_IMAGE_URL
+    except Exception as e:
+        logger.error(f"Error accessing S3: {e}")
+        return BG_IMAGE_URL
 # Create a string of supported colors
 SUPPORTED_COLORS = ",".join(color_codes.keys())
 
