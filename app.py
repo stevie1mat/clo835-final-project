@@ -24,14 +24,19 @@ DBPORT = int(os.environ.get("DBPORT", 3306))
 
 logger.info(f"Background image URL: {BG_IMAGE_URL}")
 # Create a connection to the MySQL database
-db_conn = connections.Connection(
-    host= DBHOST,
-    port=DBPORT,
-    user= DBUSER,
-    password= DBPWD, 
-    db= DATABASE
-    
-)
+# Create a connection to the MySQL database
+try:
+    db_conn = connections.Connection(
+        host= DBHOST,
+        port=DBPORT,
+        user= DBUSER,
+        password= DBPWD, 
+        db= DATABASE
+    )
+    logger.info("Successfully connected to MySQL database")
+except Exception as e:
+    logger.error(f"Failed to connect to MySQL: {e}")
+    db_conn = None
 output = {}
 table = 'employee';
 
