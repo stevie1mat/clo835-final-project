@@ -35,7 +35,7 @@ spec:
                   name: aws-credentials
                   key: AWS_SESSION_TOKEN
             - name: DBHOST
-              value: mysql
+              value: mysql.final.svc.cluster.local
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
