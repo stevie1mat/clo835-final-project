@@ -14,11 +14,13 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 DBHOST = os.environ.get("DBHOST") or "localhost"
-DBUSER = os.environ.get("DBUSER") or "root"
-DBPWD = os.environ.get("DBPWD") or "passwors"
+DBUSER = os.environ.get("MYSQL_USER") or "root"  # Read from Secret
+DBPWD = os.environ.get("MYSQL_PASSWORD") or "password"  # Read from Secret
 DATABASE = os.environ.get("DATABASE") or "employees"
+BG_IMAGE_URL = os.environ.get("BG_IMAGE_URL") or "https://clo835-bucket.s3.us-east-1.amazonaws.com/magic.jpg"
+MY_NAME = os.environ.get("MY_NAME") or "Steven Mathew"
 COLOR_FROM_ENV = os.environ.get('APP_COLOR') or "lime"
-DBPORT = int(os.environ.get("DBPORT"))
+DBPORT = int(os.environ.get("DBPORT", 3306))
 
 # Create a connection to the MySQL database
 db_conn = connections.Connection(
