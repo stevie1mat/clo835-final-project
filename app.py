@@ -22,6 +22,7 @@ MY_NAME = os.environ.get("MY_NAME") or "Steven Mathew"
 COLOR_FROM_ENV = os.environ.get('APP_COLOR') or "lime"
 DBPORT = int(os.environ.get("DBPORT", 3306))
 
+logger.info(f"Background image URL: {BG_IMAGE_URL}")
 # Create a connection to the MySQL database
 db_conn = connections.Connection(
     host= DBHOST,
