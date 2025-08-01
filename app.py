@@ -125,7 +125,9 @@ def AddEmp():
 
 @app.route("/getemp", methods=['GET', 'POST'])
 def GetEmp():
-    return render_template("getemp.html", color=color_codes[COLOR])
+    background_image = get_s3_image_url()
+    return render_template("getemp.html", color=color_codes[COLOR], 
+                         background_image=background_image, my_name=MY_NAME)
 
 
 @app.route("/fetchdata", methods=['GET','POST'])
