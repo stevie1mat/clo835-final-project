@@ -7,46 +7,61 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flask-app
+      app: flask
   template:
     metadata:
       labels:
-        app: flask-app
+        app: flask
     spec:
       containers:
-      - name: flask-app
-        image: 739037733198.dkr.ecr.us-east-1.amazonaws.com/clo835_final_project:latest
-        ports:
-        - containerPort: 81
-        env:
-        - name: DBHOST
-          value: mysql
-        - name: MYSQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: MYSQL_USER
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: MYSQL_PASSWORD
-        - name: DATABASE
-          value: employees
-        - name: DBPORT
-          value: "3306"
-        - name: BG_IMAGE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: flask-config
-              key: BG_IMAGE_URL
-        - name: MY_NAME
-          valueFrom:
-            configMapKeyRef:
-              name: flask-config
-              key: MY_NAME
-        - name: APP_COLOR
-          valueFrom:
-            configMapKeyRef:
-              name: flask-config
-              key: APP_COLOR
+        - name: flask
+          image: 739037733198.dkr.ecr.us-east-1.amazonaws.com/clo835_final_project:latest
+          ports:
+            - containerPort: 81
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_SESSION_TOKEN
+            - name: DBHOST
+              value: mysql
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_PASSWORD
+            - name: DATABASE
+              value: employees
+            - name: DBPORT
+              value: "3306"
+            - name: BG_IMAGE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: flask-config
+                  key: BG_IMAGE_URL
+            - name: MY_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: flask-config
+                  key: MY_NAME
+            - name: APP_COLOR
+              valueFrom:
+                configMapKeyRef:
+                  name: flask-config
+                  key: APP_COLOR

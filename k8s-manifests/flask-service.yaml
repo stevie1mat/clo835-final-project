@@ -5,7 +5,7 @@ metadata:
   namespace: final
 spec:
   selector:
-    app: flask-app
+    app: flask
   ports:
   - port: 80
     targetPort: 81
