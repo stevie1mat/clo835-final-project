@@ -4,6 +4,6 @@ metadata:
   name: flask-config
   namespace: final
 data:
-  BG_IMAGE_URL: "https://clo835-bucket.s3.us-east-1.amazonaws.com/magic.jpg"
+  BG_IMAGE_URL: "https://clo835-bucket.s3.us-east-1.amazonaws.com/final+clo835.jpg"
   MY_NAME: "Steven Mathew"
   APP_COLOR: "green"
