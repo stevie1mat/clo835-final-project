@@ -88,8 +88,9 @@ COLOR = random.choice(["red", "green", "blue", "blue2", "darkblue", "pink", "lim
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
+    background_image = get_s3_image_url()
     return render_template('addemp.html', color=color_codes[COLOR], 
-                        background_image=background_image, my_name=MY_NAME)
+                         background_image=background_image, my_name=MY_NAME)
 
 @app.route("/about", methods=['GET','POST'])
 def about():
