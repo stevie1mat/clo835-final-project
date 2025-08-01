@@ -149,14 +149,19 @@ def FetchData():
         output["primary_skills"] = result[3]
         output["location"] = result[4]
         
+        logger.info(f"Employee {emp_id} fetched successfully")
+        
     except Exception as e:
-        print(e)
+        logger.error(f"Error fetching employee {emp_id}: {e}")
 
     finally:
         cursor.close()
 
+    background_image = get_s3_image_url()
     return render_template("getempoutput.html", id=output["emp_id"], fname=output["first_name"],
-                           lname=output["last_name"], interest=output["primary_skills"], location=output["location"], color=color_codes[COLOR])
+                           lname=output["last_name"], interest=output["primary_skills"], 
+                           location=output["location"], color=color_codes[COLOR], 
+                           background_image=background_image, my_name=MY_NAME)
 
 if __name__ == '__main__':
     
