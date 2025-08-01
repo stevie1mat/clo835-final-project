@@ -106,21 +106,22 @@ def AddEmp():
     primary_skill = request.form['primary_skill']
     location = request.form['location']
 
-  
     insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     try:
-        
         cursor.execute(insert_sql,(emp_id, first_name, last_name, primary_skill, location))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
+        logger.info(f"Employee {emp_name} added successfully")
 
     finally:
         cursor.close()
 
     print("all modification done...")
-    return render_template('addempoutput.html', name=emp_name, color=color_codes[COLOR])
+    background_image = get_s3_image_url()
+    return render_template('addempoutput.html', name=emp_name, color=color_codes[COLOR], 
+                         background_image=background_image, my_name=MY_NAME)
 
 @app.route("/getemp", methods=['GET', 'POST'])
 def GetEmp():
